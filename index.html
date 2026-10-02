@@ -45,8 +45,10 @@
       var standalone = window.navigator.standalone === true ||
         window.matchMedia('(display-mode: standalone)').matches;
       function fit() {
+        var w = window.innerWidth;
         var h = standalone ? Math.max(screen.height, window.innerHeight) : window.innerHeight;
         stage.style.height = h + 'px';
+        document.documentElement.style.backgroundSize = w + 'px ' + h + 'px';
       }
       fit();
       window.addEventListener('resize', fit);

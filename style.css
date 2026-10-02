@@ -9,13 +9,22 @@ html, body {
   height: 100%;
   overflow: hidden;
   overscroll-behavior: none;
-  background: #022d5a; /* mismo azul que el fondo de abajo de la foto */
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Pantalla completa con la foto original.
-   --u = 1 píxel de la captura original (920 x 2000) */
+/* La foto original va en el fondo raíz: iOS lo pinta en TODA la pantalla
+   (también por debajo de donde acaba la página en modo app).
+   El tamaño exacto en píxeles lo pone el script según la pantalla. */
+html {
+  background: #022d5a url("bg.jpg") 0 0 / 100vw 100vh no-repeat;
+}
+
+body {
+  background: transparent;
+}
+
+/* Capa donde va la tarjeta. --u = 1 píxel de la captura original (920 x 2000) */
 .stage {
   position: fixed;
   top: 0;
@@ -23,7 +32,6 @@ html, body {
   width: 100%;
   height: 100vh;
   container-type: size;
-  background: url("bg.jpg") center / 100% 100% no-repeat;
 }
 
 .card {

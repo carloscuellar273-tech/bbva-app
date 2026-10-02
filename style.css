@@ -16,7 +16,7 @@ html, body {
 /* La foto original va en el fondo raíz. El tamaño y el desplazamiento exactos
    en píxeles los pone el script según la pantalla. */
 html {
-  background: #144866 url("bg.jpg?v=9") 0 0 / 100vw 100vh no-repeat;
+  background: #144866 url("bg.jpg?v=10") 0 0 / 100vw 100vh no-repeat;
 }
 
 body {

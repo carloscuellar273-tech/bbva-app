@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>BBVA</title>
+
+  <!-- PWA / modo app en el móvil -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BBVA" />
+  <meta name="theme-color" content="#0a1a2f" />
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- La foto real (logo BBVA, Ayuda y Menú ya vienen en la imagen) -->
+  <div class="stage">
+    <!-- Tarjeta de login (colocada justo encima de la tarjeta de la foto) -->
+    <section class="card">
+      <div class="card__head">
+        <h1 class="greeting">Buenas tardes,<br />Carlos</h1>
+        <div class="avatar">CC</div>
+      </div>
+
+      <a href="#" class="switch-user">Cambiar usuario</a>
+
+      <button class="login-btn" type="button">Iniciar sesión</button>
+
+      <p class="notice">
+        <svg class="lock" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+        <span>BBVA NUNCA te pedirá tus datos mediante SMS con enlaces NI en llamadas telefónicas</span>
+      </p>
+    </section>
+  </div>
+</body>
+</html>

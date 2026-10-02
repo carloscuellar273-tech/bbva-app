@@ -5,41 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
   <title>BBVA</title>
 
-  <!-- PWA / modo app en el móvil -->
+  <!-- Modo app en el móvil (pantalla completa, barra de estado transparente) -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
-  <meta name="theme-color" content="#0a1a2f" />
+  <meta name="theme-color" content="#022d5a" />
   <link rel="manifest" href="manifest.json" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- La foto real (logo BBVA, Ayuda y Menú ya vienen en la imagen) -->
+  <!-- Foto real a pantalla completa (logo BBVA, Ayuda y Menú vienen en la imagen) -->
   <div class="stage">
-    <!-- Tarjeta de login (colocada justo encima de la tarjeta de la foto) -->
     <section class="card">
-      <div class="card__head">
-        <h1 class="greeting">Buenas tardes,<br />Carlos</h1>
-        <div class="avatar">CC</div>
-      </div>
+      <h1 class="greeting">Buenas tardes,<br />Carlos</h1>
+      <div class="avatar">CC</div>
 
       <a href="#" class="switch-user">Cambiar usuario</a>
 
       <button class="login-btn" type="button">Iniciar sesión</button>
 
-      <p class="notice">
-        <svg class="lock" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
-        </svg>
-        <span>BBVA NUNCA te pedirá tus datos mediante SMS con enlaces NI en llamadas telefónicas</span>
-      </p>
+      <svg class="lock" viewBox="0 0 24 31" aria-hidden="true">
+        <rect x="1.3" y="12.3" width="21.4" height="17.4" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <path d="M5.5 12.3V8.2a6.5 6.5 0 0 1 13 0v4.1" fill="none" stroke="currentColor" stroke-width="2.4"/>
+      </svg>
+      <p class="notice">BBVA NUNCA te pedirá tus datos mediante SMS con<br />enlaces NI en llamadas telefónicas</p>
     </section>
   </div>
+
+  <script>
+    // En modo app (pantalla de inicio) ocupar la pantalla entera, también bajo la barra de estado
+    (function () {
+      var stage = document.querySelector('.stage');
+      var standalone = window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches;
+      function fit() {
+        var h = standalone ? Math.max(screen.height, window.innerHeight) : window.innerHeight;
+        stage.style.height = h + 'px';
+      }
+      fit();
+      window.addEventListener('resize', fit);
+      window.addEventListener('orientationchange', fit);
+      // Que no se mueva la pantalla al arrastrar
+      document.addEventListener('touchmove', function (e) { e.preventDefault(); }, { passive: false });
+    })();
+  </script>
 </body>
 </html>

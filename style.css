@@ -8,102 +8,113 @@
 html, body {
   height: 100%;
   overflow: hidden;
-  background: #0a1a2f;
+  overscroll-behavior: none;
+  background: #022d5a; /* mismo azul que el fondo de abajo de la foto */
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Foto real de la captura, rellena la pantalla exacta */
+/* Pantalla completa con la foto original.
+   --u = 1 píxel de la captura original (920 x 2000) */
 .stage {
   position: fixed;
-  inset: 0;
-  background-image: url("bg.jpg");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  container-type: size;
+  background: url("bg.jpg") center / 100% 100% no-repeat;
 }
 
-/* Tarjeta: colocada sobre la tarjeta de la foto (medidas de la captura) */
 .card {
+  --u: 0.05cqh;
   position: absolute;
-  left: 4%;
-  right: 4%;
-  top: 34.2%;
-  bottom: 33.6%;
-  background: #0a1b2b;
-  border-radius: 2.8vw;
-  padding: 2.8vh 4.2% 2.2vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  top: calc(768 * var(--u));
+  left: 4.02%;
+  right: 4.13%;
+  height: calc(603 * var(--u));
+  background: rgb(16, 25, 45);
+  border-radius: calc(40 * var(--u));
   color: #fff;
 }
 
 .greeting {
+  position: absolute;
+  left: calc(35 * var(--u));
+  top: calc(34 * var(--u));
   font-family: "Lora", Georgia, serif;
   font-weight: 700;
-  font-size: 3.9vh;
-  line-height: 1.03;
-  letter-spacing: -0.3px;
+  font-size: calc(74 * var(--u));
+  line-height: calc(92 * var(--u));
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
 .avatar {
   position: absolute;
-  top: 2vh;
-  right: 4%;
-  width: 6.4vh;
-  height: 6.4vh;
+  top: calc(37 * var(--u));
+  right: calc(37 * var(--u));
+  width: calc(126 * var(--u));
+  height: calc(126 * var(--u));
   border-radius: 50%;
-  background: #7fd4cf;
-  color: #0a1b2b;
+  background: rgb(140, 225, 233);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2vh;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: calc(45 * var(--u));
+  font-weight: 300;
   text-transform: uppercase;
 }
 
 .switch-user {
-  display: inline-block;
-  margin-top: 1.6vh;
-  color: #4a93ff;
-  font-size: 2.1vh;
-  font-weight: 600;
+  position: absolute;
+  left: calc(36 * var(--u));
+  top: calc(244 * var(--u));
+  color: rgb(138, 196, 245);
+  font-size: calc(34.8 * var(--u));
+  line-height: calc(40 * var(--u));
+  font-weight: 500;
   text-decoration: none;
 }
 
 .login-btn {
-  width: 100%;
-  margin-top: 1.7vh;
-  padding: 2vh 0;
+  position: absolute;
+  left: calc(37 * var(--u));
+  right: calc(37 * var(--u));
+  top: calc(330 * var(--u));
+  height: calc(127 * var(--u));
   border: none;
-  border-radius: 1.5vw;
+  border-radius: calc(16 * var(--u));
   background: #fff;
-  color: #0a2a66;
-  font-size: 2.2vh;
-  font-weight: 700;
-  cursor: pointer;
+  color: rgb(6, 21, 131);
   font-family: "Inter", sans-serif;
+  font-size: calc(34.5 * var(--u));
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .login-btn:active {
   background: #eef1f6;
 }
 
-.notice {
-  display: flex;
-  align-items: center;
-  gap: 3%;
-  margin-top: 1.9vh;
-  color: #d6dde6;
-  font-size: 1.7vh;
-  line-height: 1.25;
+.lock {
+  position: absolute;
+  left: calc(42 * var(--u));
+  top: calc(516 * var(--u));
+  width: calc(24 * var(--u));
+  height: calc(31 * var(--u));
+  color: rgb(231, 238, 248);
 }
 
-.lock {
-  flex-shrink: 0;
-  width: 2.2vh;
-  height: 2.2vh;
-  color: #d6dde6;
+.notice {
+  position: absolute;
+  left: calc(92 * var(--u));
+  top: calc(494 * var(--u));
+  color: rgb(231, 238, 248);
+  font-size: calc(27.5 * var(--u));
+  line-height: calc(37 * var(--u));
+  font-weight: 400;
+  letter-spacing: calc(-0.58 * var(--u));
+  white-space: nowrap;
 }

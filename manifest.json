@@ -3,7 +3,7 @@
   "short_name": "BBVA",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0a1a2f",
-  "theme_color": "#0a1a2f",
+  "background_color": "#022d5a",
+  "theme_color": "#022d5a",
   "orientation": "portrait"
 }

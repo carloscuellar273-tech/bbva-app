@@ -17,11 +17,24 @@ html, body {
    (también por debajo de donde acaba la página en modo app).
    El tamaño exacto en píxeles lo pone el script según la pantalla. */
 html {
-  background: #022d5a url("bg.jpg?v=4") 0 0 / 100vw 100vh no-repeat;
+  background: #022d5a url("bg.jpg?v=5") 0 0 / 100vw 100vh no-repeat;
 }
 
 body {
   background: transparent;
+}
+
+/* iOS 26 desenfoca lo que hay bajo la hora salvo que arriba haya una caja fija con fondo.
+   Esta caja lleva exactamente el mismo trozo de foto, así que no se nota. */
+.topcap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgb(24, 75, 104) url("bg.jpg?v=5") 0 0 / 100vw 100vh no-repeat;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Capa donde va la tarjeta. --u = 1 píxel de la captura original (920 x 2000) */

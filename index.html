@@ -12,15 +12,18 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=8" />
+  <link rel="manifest" href="manifest.json?v=9" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
 <body>
+  <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
+  <div class="edge"></div>
+
   <!-- Foto real a pantalla completa (logo BBVA, Ayuda y Menú vienen en la imagen) -->
   <div class="stage">
     <section class="card">
@@ -65,7 +68,7 @@
         document.documentElement.style.backgroundSize = w + 'px ' + full + 'px';
         document.documentElement.style.backgroundPosition = '0 ' + (-off) + 'px';
         var d = document.getElementById('dbg');
-        if (d) d.textContent = 'v8 · app:' + (standalone ? 'sí' : 'no') + ' · barra:' + (inset > 0 ? 'transparente ' + inset : 'opaca') +
+        if (d) d.textContent = 'v9 · app:' + (standalone ? 'sí' : 'no') + ' · barra:' + (inset > 0 ? 'transparente ' + inset : 'opaca') +
           ' · ventana ' + window.innerWidth + 'x' + window.innerHeight + ' · pantalla ' + screen.width + 'x' + screen.height + ' · desplaz ' + off;
       }
       fit();

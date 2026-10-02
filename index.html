@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=7" />
+  <link rel="manifest" href="manifest.json?v=8" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body>
   <!-- Foto real a pantalla completa (logo BBVA, Ayuda y Menú vienen en la imagen) -->
@@ -48,19 +48,25 @@
       var stage = document.querySelector('.stage');
       var standalone = window.navigator.standalone === true ||
         window.matchMedia('(display-mode: standalone)').matches;
+      // Alto de la zona de la hora que iOS reserva sobre la página (0 si la barra es opaca)
+      var probe = document.createElement('div');
+      probe.style.cssText = 'position:fixed;top:0;left:0;height:0;visibility:hidden;padding-top:env(safe-area-inset-top)';
+      document.body.appendChild(probe);
+
       function fit() {
         var w = window.innerWidth;
-        // En modo app la página empieza debajo de la barra de estado: desplazamos la foto
-        // hacia arriba esa altura para que todo quede en la misma posición que en la captura.
+        var inset = parseFloat(getComputedStyle(probe).paddingTop) || 0;
         var full = standalone ? Math.max(screen.height, window.innerHeight) : window.innerHeight;
-        var off = standalone ? Math.max(0, full - window.innerHeight) : 0;
+        // Barra opaca ("default"): la página empieza debajo de la hora -> subir la foto esa altura.
+        // Barra transparente (icono antiguo): la página ya empieza arriba del todo -> no desplazar.
+        var off = (standalone && inset === 0) ? Math.max(0, full - window.innerHeight) : 0;
         stage.style.top = -off + 'px';
         stage.style.height = full + 'px';
         document.documentElement.style.backgroundSize = w + 'px ' + full + 'px';
         document.documentElement.style.backgroundPosition = '0 ' + (-off) + 'px';
         var d = document.getElementById('dbg');
-        if (d) d.textContent = 'v7 · app:' + (standalone ? 'sí' : 'no') + ' · ventana ' + window.innerWidth + 'x' + window.innerHeight +
-          ' · pantalla ' + screen.width + 'x' + screen.height + ' · desplaz ' + off;
+        if (d) d.textContent = 'v8 · app:' + (standalone ? 'sí' : 'no') + ' · barra:' + (inset > 0 ? 'transparente ' + inset : 'opaca') +
+          ' · ventana ' + window.innerWidth + 'x' + window.innerHeight + ' · pantalla ' + screen.width + 'x' + screen.height + ' · desplaz ' + off;
       }
       fit();
       window.addEventListener('resize', fit);

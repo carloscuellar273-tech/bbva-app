@@ -17,7 +17,7 @@ html, body {
    (también por debajo de donde acaba la página en modo app).
    El tamaño exacto en píxeles lo pone el script según la pantalla. */
 html {
-  background: #022d5a url("bg.jpg") 0 0 / 100vw 100vh no-repeat;
+  background: #022d5a url("bg.jpg?v=3") 0 0 / 100vw 100vh no-repeat;
 }
 
 body {

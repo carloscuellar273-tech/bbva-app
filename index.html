@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
   <title>BBVA</title>
 
-  <!-- Modo app en el móvil. Barra de estado "default": iOS 26 la pinta con theme-color (liso y nítido).
-       Con "black-translucent" iOS 26 desenfoca y oscurece la foto bajo la hora y no hay forma de evitarlo. -->
+  <!-- Modo app en el móvil: la foto llega por detrás de la hora ("black-translucent").
+       iOS 26 desenfoca esa zona salvo que el filo superior de la página sea liso: ver .edge -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
-  <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=10" />
+  <meta name="theme-color" content="#022d5a" />
+  <link rel="manifest" href="manifest.json?v=11" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=11" />
 </head>
 <body>
-  <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
+  <!-- Tira negra fina en el filo de la pantalla: iOS 26 solo deja de desenfocar si el borde superior es liso -->
   <div class="edge"></div>
 
   <!-- Foto real a pantalla completa (logo BBVA, Ayuda y Menú vienen en la imagen) -->

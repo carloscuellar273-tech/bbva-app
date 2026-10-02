@@ -11,13 +11,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#022d5a" />
-  <link rel="manifest" href="manifest.json?v=3" />
+  <link rel="manifest" href="manifest.json?v=4" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <!-- Foto real a pantalla completa (logo BBVA, Ayuda y Menú vienen en la imagen) -->
@@ -38,6 +38,9 @@
     </section>
   </div>
 
+  <!-- DIAGNÓSTICO TEMPORAL (se quitará) -->
+  <div id="dbg" style="position:fixed;left:0;right:0;top:72%;text-align:center;font:12px -apple-system,sans-serif;color:#fff;opacity:.85;pointer-events:none"></div>
+
   <script>
     // En modo app (pantalla de inicio) ocupar la pantalla entera, también bajo la barra de estado
     (function () {
@@ -49,6 +52,9 @@
         var h = standalone ? Math.max(screen.height, window.innerHeight) : window.innerHeight;
         stage.style.height = h + 'px';
         document.documentElement.style.backgroundSize = w + 'px ' + h + 'px';
+        var d = document.getElementById('dbg');
+        if (d) d.textContent = 'v4 · app:' + (standalone ? 'sí' : 'no') + ' · ventana ' + window.innerWidth + 'x' + window.innerHeight +
+          ' · pantalla ' + screen.width + 'x' + screen.height + ' · html ' + document.documentElement.clientHeight;
       }
       fit();
       window.addEventListener('resize', fit);

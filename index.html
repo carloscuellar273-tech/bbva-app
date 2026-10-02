@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
   <title>BBVA</title>
 
-  <!-- Modo app en el móvil (pantalla completa, barra de estado transparente) -->
+  <!-- Modo app en el móvil. Barra de estado "default": iOS 26 la pinta con theme-color (liso y nítido).
+       Con "black-translucent" iOS 26 desenfoca y oscurece la foto bajo la hora y no hay forma de evitarlo. -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
-  <meta name="theme-color" content="#022d5a" />
-  <link rel="manifest" href="manifest.json?v=6" />
+  <meta name="theme-color" content="#144866" />
+  <link rel="manifest" href="manifest.json?v=7" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body>
   <!-- Foto real a pantalla completa (logo BBVA, Ayuda y Menú vienen en la imagen) -->
@@ -49,12 +50,17 @@
         window.matchMedia('(display-mode: standalone)').matches;
       function fit() {
         var w = window.innerWidth;
-        var h = standalone ? Math.max(screen.height, window.innerHeight) : window.innerHeight;
-        stage.style.height = h + 'px';
-        document.documentElement.style.backgroundSize = w + 'px ' + h + 'px';
+        // En modo app la página empieza debajo de la barra de estado: desplazamos la foto
+        // hacia arriba esa altura para que todo quede en la misma posición que en la captura.
+        var full = standalone ? Math.max(screen.height, window.innerHeight) : window.innerHeight;
+        var off = standalone ? Math.max(0, full - window.innerHeight) : 0;
+        stage.style.top = -off + 'px';
+        stage.style.height = full + 'px';
+        document.documentElement.style.backgroundSize = w + 'px ' + full + 'px';
+        document.documentElement.style.backgroundPosition = '0 ' + (-off) + 'px';
         var d = document.getElementById('dbg');
-        if (d) d.textContent = 'v6 · app:' + (standalone ? 'sí' : 'no') + ' · ventana ' + window.innerWidth + 'x' + window.innerHeight +
-          ' · pantalla ' + screen.width + 'x' + screen.height + ' · html ' + document.documentElement.clientHeight;
+        if (d) d.textContent = 'v7 · app:' + (standalone ? 'sí' : 'no') + ' · ventana ' + window.innerWidth + 'x' + window.innerHeight +
+          ' · pantalla ' + screen.width + 'x' + screen.height + ' · desplaz ' + off;
       }
       fit();
       window.addEventListener('resize', fit);

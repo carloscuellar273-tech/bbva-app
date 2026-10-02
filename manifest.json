@@ -1,9 +1,0 @@
-{
-  "name": "BBVA",
-  "short_name": "BBVA",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#022d5a",
-  "theme_color": "#022d5a",
-  "orientation": "portrait"
-}

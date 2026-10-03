@@ -16,14 +16,14 @@ html, body {
 /* La foto original va en el fondo raíz. El tamaño y el desplazamiento exactos
    en píxeles los pone el script según la pantalla. */
 html {
-  background: #144866 url("bg.jpg?v=16") 0 0 / 100vw 100vh no-repeat;
+  background: #144866 url("bg.jpg?v=17") 0 0 / 100vw 100vh no-repeat;
 }
 
 /* Modo app nativa (?app=1): foto limpia a pantalla completa y nítida
    (dentro de la app de iOS no hay desenfoque, así que no hacen falta parches) */
 html.app {
   background-color: #022d5a;
-  background-image: url("bg-app.jpg?v=16");
+  background-image: url("bg-app.jpg?v=17");
 }
 html.app .edge {
   display: none;
@@ -230,25 +230,38 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 .field2__dots {
   position: absolute;
   left: calc(38 * var(--u));
-  top: calc(72 * var(--u));
+  top: calc(60 * var(--u));
+  height: calc(48 * var(--u));
   display: flex;
   align-items: center;
-  gap: calc(13 * var(--u));
+  gap: calc(10 * var(--u));
   pointer-events: none;
 }
 .field2__dots i {
-  width: calc(20 * var(--u));
-  height: calc(20 * var(--u));
+  width: calc(15 * var(--u));
+  height: calc(15 * var(--u));
   border-radius: 50%;
   background: #fff;
 }
+/* cursor propio: raya fina, centrada, justo tras el último punto */
+.field2__dots b {
+  width: calc(3 * var(--u));
+  height: calc(30 * var(--u));
+  margin-left: calc(6 * var(--u));
+  background: #1973e8;
+  border-radius: calc(2 * var(--u));
+  animation: caret 1s steps(1) infinite;
+}
+.field2:not(.focused) .field2__dots b { display: none; }
+@keyframes caret { 50% { opacity: 0; } }
 .field2__dots.as-text {
   gap: 0;
   color: #fff;
   font-family: "Inter", sans-serif;
-  font-size: calc(34 * var(--u));
+  font-size: calc(32 * var(--u));
   letter-spacing: calc(2 * var(--u));
 }
+.field2__dots.as-text b { margin-left: calc(2 * var(--u)); }
 /* Campo real: texto invisible (nunca se ve la letra), solo cursor y teclado */
 .field2__input {
   position: absolute;
@@ -259,11 +272,10 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   border: none;
   outline: none;
   color: transparent;
-  caret-color: #fff;
+  caret-color: transparent;
   font-family: "Inter", sans-serif;
   font-size: calc(30 * var(--u));
-  letter-spacing: calc(12 * var(--u));
-  padding: calc(60 * var(--u)) calc(90 * var(--u)) 0 calc(36 * var(--u));
+  padding: 0;
   -webkit-appearance: none;
 }
 .field2__eye {

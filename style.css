@@ -16,14 +16,14 @@ html, body {
 /* La foto original va en el fondo raíz. El tamaño y el desplazamiento exactos
    en píxeles los pone el script según la pantalla. */
 html {
-  background: #144866 url("bg.jpg?v=15") 0 0 / 100vw 100vh no-repeat;
+  background: #144866 url("bg.jpg?v=16") 0 0 / 100vw 100vh no-repeat;
 }
 
 /* Modo app nativa (?app=1): foto limpia a pantalla completa y nítida
    (dentro de la app de iOS no hay desenfoque, así que no hacen falta parches) */
 html.app {
   background-color: #022d5a;
-  background-image: url("bg-app.jpg?v=15");
+  background-image: url("bg-app.jpg?v=16");
 }
 html.app .edge {
   display: none;
@@ -223,22 +223,22 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   transition: top 0.15s ease, font-size 0.15s ease, transform 0.15s ease;
 }
 .field2.floated .field2__label {
-  top: calc(26 * var(--u));
+  top: calc(24 * var(--u));
   transform: none;
-  font-size: calc(21 * var(--u));
+  font-size: calc(24 * var(--u));
 }
 .field2__dots {
   position: absolute;
   left: calc(38 * var(--u));
-  top: calc(70 * var(--u));
+  top: calc(72 * var(--u));
   display: flex;
   align-items: center;
-  gap: calc(11 * var(--u));
+  gap: calc(13 * var(--u));
   pointer-events: none;
 }
 .field2__dots i {
-  width: calc(16 * var(--u));
-  height: calc(16 * var(--u));
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
   border-radius: 50%;
   background: #fff;
 }
@@ -246,7 +246,7 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   gap: 0;
   color: #fff;
   font-family: "Inter", sans-serif;
-  font-size: calc(32 * var(--u));
+  font-size: calc(34 * var(--u));
   letter-spacing: calc(2 * var(--u));
 }
 /* Campo real: texto invisible (nunca se ve la letra), solo cursor y teclado */

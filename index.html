@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=19" />
+  <link rel="manifest" href="manifest.json?v=20" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=19" />
+  <link rel="stylesheet" href="style.css?v=20" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -46,7 +46,7 @@
   <div class="sheet-overlay" id="sheet" aria-hidden="true">
     <div class="sheet-dim" id="sheetDim"></div>
     <section class="sheet" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
-      <img class="sheet-img" src="sheet-bg.jpg?v=19" alt="" draggable="false" />
+      <img class="sheet-img" src="sheet-bg.jpg?v=20" alt="" draggable="false" />
 
       <!-- Campo vivo (encima del de la foto): etiqueta flotante + puntos -->
       <div class="field2" id="field2">
@@ -73,7 +73,21 @@
   </div>
 
   <!-- Pantalla de dentro (home), aparece al iniciar sesión -->
-  <div class="home" id="home" aria-hidden="true"></div>
+  <div class="home" id="home" aria-hidden="true">
+    <button class="home-vertodo" id="homeVerTodo" type="button" aria-label="Ver todo"></button>
+  </div>
+
+  <!-- Pantalla "Principales productos": tarjetas de cuenta deslizables -->
+  <div class="ver" id="ver" aria-hidden="true">
+    <div class="ver-track" id="verTrack">
+      <section class="ver-page" style="background-image:url('bg-ver1.jpg?v=20')">
+        <div class="ver-balance">2.483,32&nbsp;€</div>
+      </section>
+      <section class="ver-page" style="background-image:url('bg-ver2.jpg?v=20')">
+        <div class="ver-balance">19.273,89&nbsp;€</div>
+      </section>
+    </div>
+  </div>
 
   <script>
     // En modo app (pantalla de inicio) ocupar la pantalla entera, también bajo la barra de estado
@@ -182,6 +196,15 @@
         home.classList.add('open');
         home.setAttribute('aria-hidden', 'false');
         closeSheet();
+      });
+
+      // Ver todo -> pantalla de cuentas (deslizable)
+      var ver = document.getElementById('ver');
+      var verTrack = document.getElementById('verTrack');
+      document.getElementById('homeVerTodo').addEventListener('click', function () {
+        ver.classList.add('open');
+        ver.setAttribute('aria-hidden', 'false');
+        verTrack.scrollLeft = 0;
       });
 
       pwd.addEventListener('input', render);

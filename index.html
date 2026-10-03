@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=18" />
+  <link rel="manifest" href="manifest.json?v=19" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=18" />
+  <link rel="stylesheet" href="style.css?v=19" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -46,7 +46,7 @@
   <div class="sheet-overlay" id="sheet" aria-hidden="true">
     <div class="sheet-dim" id="sheetDim"></div>
     <section class="sheet" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
-      <img class="sheet-img" src="sheet-bg.jpg?v=18" alt="" draggable="false" />
+      <img class="sheet-img" src="sheet-bg.jpg?v=19" alt="" draggable="false" />
 
       <!-- Campo vivo (encima del de la foto): etiqueta flotante + puntos -->
       <div class="field2" id="field2">
@@ -71,6 +71,9 @@
       <a class="hit hit-forgot" id="forgot" href="#" aria-label="¿Has olvidado tu clave de acceso?"></a>
     </section>
   </div>
+
+  <!-- Pantalla de dentro (home), aparece al iniciar sesión -->
+  <div class="home" id="home" aria-hidden="true"></div>
 
   <script>
     // En modo app (pantalla de inicio) ocupar la pantalla entera, también bajo la barra de estado
@@ -170,6 +173,16 @@
       openBtn.addEventListener('click', openSheet);
       document.getElementById('sheetClose').addEventListener('click', closeSheet);
       document.getElementById('sheetDim').addEventListener('click', closeSheet);
+
+      // Iniciar sesión (botón blanco) -> pantalla de dentro
+      var home = document.getElementById('home');
+      loginBtn.addEventListener('click', function () {
+        if (!loginBtn.classList.contains('on')) return;
+        pwd.blur();
+        home.classList.add('open');
+        home.setAttribute('aria-hidden', 'false');
+        closeSheet();
+      });
 
       pwd.addEventListener('input', render);
       // Etiqueta flotante y cursor al enfocar / desenfocar

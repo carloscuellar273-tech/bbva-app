@@ -19,6 +19,16 @@ html {
   background: #144866 url("bg.jpg?v=10") 0 0 / 100vw 100vh no-repeat;
 }
 
+/* Modo app nativa (?app=1): foto limpia a pantalla completa y nítida
+   (dentro de la app de iOS no hay desenfoque, así que no hacen falta parches) */
+html.app {
+  background-color: #022d5a;
+  background-image: url("bg-app.jpg?v=10");
+}
+html.app .edge {
+  display: none;
+}
+
 body {
   background: transparent;
 }

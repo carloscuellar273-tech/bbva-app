@@ -46,8 +46,11 @@
     // En modo app (pantalla de inicio) ocupar la pantalla entera, también bajo la barra de estado
     (function () {
       var stage = document.querySelector('.stage');
-      var standalone = window.navigator.standalone === true ||
-        window.matchMedia('(display-mode: standalone)').matches;
+      // Modo app nativa: ?app=1  (foto limpia a pantalla completa, sin desplazamientos)
+      var appMode = new URLSearchParams(location.search).get('app') === '1';
+      if (appMode) document.documentElement.classList.add('app');
+      var standalone = !appMode && (window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches);
       // Alto de la zona de la hora que iOS reserva sobre la página (0 si la barra es opaca)
       var probe = document.createElement('div');
       probe.style.cssText = 'position:fixed;top:0;left:0;height:0;visibility:hidden;padding-top:env(safe-area-inset-top)';

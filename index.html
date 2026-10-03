@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=10" />
+  <link rel="manifest" href="manifest.json?v=12" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=12" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -39,6 +39,40 @@
         <path d="M5.5 12.3V8.2a6.5 6.5 0 0 1 13 0v4.1" fill="none" stroke="currentColor" stroke-width="2.4"/>
       </svg>
       <p class="notice">BBVA NUNCA te pedirá tus datos mediante SMS con<br />enlaces NI en llamadas telefónicas</p>
+    </section>
+  </div>
+
+  <!-- Panel "Iniciar sesión" (sube desde abajo) -->
+  <div class="sheet-overlay" id="sheet" aria-hidden="true">
+    <div class="sheet-dim" id="sheetDim"></div>
+    <section class="sheet" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
+      <div class="sheet-handle"></div>
+
+      <h2 class="sheet-title">Iniciar sesión</h2>
+      <button class="sheet-close" type="button" id="sheetClose" aria-label="Cerrar">
+        <span class="sheet-close__disc">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="sheet-close__label">Cerrar</span>
+      </button>
+
+      <div class="field">
+        <input class="field__input" id="pwd" type="password" inputmode="text"
+               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+               placeholder="Clave de acceso" />
+        <button class="field__eye" type="button" id="eye" aria-label="Mostrar clave">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.7"/>
+            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+          </svg>
+        </button>
+      </div>
+
+      <a href="#" class="sheet-forgot" id="forgot">¿Has olvidado tu clave de acceso?</a>
+
+      <button class="sheet-login" type="button" id="sheetLogin" disabled>Iniciar sesión</button>
     </section>
   </div>
 
@@ -71,8 +105,50 @@
       fit();
       window.addEventListener('resize', fit);
       window.addEventListener('orientationchange', fit);
-      // Que no se mueva la pantalla al arrastrar
-      document.addEventListener('touchmove', function (e) { e.preventDefault(); }, { passive: false });
+      // Que no se mueva la pantalla al arrastrar (pero sí dentro de campos de texto)
+      document.addEventListener('touchmove', function (e) {
+        if (!e.target.closest('input, textarea')) e.preventDefault();
+      }, { passive: false });
+
+      // ---- Panel "Iniciar sesión" ----
+      var sheet = document.getElementById('sheet');
+      var pwd = document.getElementById('pwd');
+      var loginBtn = document.getElementById('sheetLogin');
+      var openBtn = document.querySelector('.login-btn');
+
+      function openSheet() {
+        sheet.classList.add('open');
+        sheet.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('sheet-open');
+        // abrir el teclado (debe hacerse dentro del gesto del usuario)
+        setTimeout(function () { pwd.focus(); }, 120);
+      }
+      function closeSheet() {
+        pwd.blur();
+        sheet.classList.remove('open');
+        sheet.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('sheet-open');
+      }
+
+      openBtn.addEventListener('click', openSheet);
+      document.getElementById('sheetClose').addEventListener('click', closeSheet);
+      document.getElementById('sheetDim').addEventListener('click', closeSheet);
+
+      // El botón se pone blanco (activo) con más de 4 caracteres
+      pwd.addEventListener('input', function () {
+        loginBtn.disabled = pwd.value.length <= 4;
+      });
+
+      // Ojo: mostrar/ocultar la clave
+      document.getElementById('eye').addEventListener('click', function () {
+        pwd.type = pwd.type === 'password' ? 'text' : 'password';
+        pwd.focus();
+      });
+
+      // Enlaces sin acción por ahora
+      document.getElementById('forgot').addEventListener('click', function (e) { e.preventDefault(); });
+      var cambiar = document.querySelector('.switch-user');
+      if (cambiar) cambiar.addEventListener('click', function (e) { e.preventDefault(); });
     })();
   </script>
 </body>

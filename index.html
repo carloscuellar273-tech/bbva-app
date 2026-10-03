@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=12" />
+  <link rel="manifest" href="manifest.json?v=13" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=12" />
+  <link rel="stylesheet" href="style.css?v=13" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -59,7 +59,7 @@
       </button>
 
       <div class="field">
-        <input class="field__input" id="pwd" type="password" inputmode="text"
+        <input class="field__input" id="pwd" type="text" inputmode="text"
                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                placeholder="Clave de acceso" />
         <button class="field__eye" type="button" id="eye" aria-label="Mostrar clave">
@@ -139,9 +139,9 @@
         loginBtn.disabled = pwd.value.length <= 4;
       });
 
-      // Ojo: mostrar/ocultar la clave
+      // Ojo: mostrar/ocultar la clave (siempre puntos salvo que se pulse el ojo)
       document.getElementById('eye').addEventListener('click', function () {
-        pwd.type = pwd.type === 'password' ? 'text' : 'password';
+        pwd.classList.toggle('reveal');
         pwd.focus();
       });
 

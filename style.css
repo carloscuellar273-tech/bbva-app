@@ -16,14 +16,14 @@ html, body {
 /* La foto original va en el fondo raíz. El tamaño y el desplazamiento exactos
    en píxeles los pone el script según la pantalla. */
 html {
-  background: #144866 url("bg.jpg?v=12") 0 0 / 100vw 100vh no-repeat;
+  background: #144866 url("bg.jpg?v=13") 0 0 / 100vw 100vh no-repeat;
 }
 
 /* Modo app nativa (?app=1): foto limpia a pantalla completa y nítida
    (dentro de la app de iOS no hay desenfoque, así que no hacen falta parches) */
 html.app {
   background-color: #022d5a;
-  background-image: url("bg-app.jpg?v=12");
+  background-image: url("bg-app.jpg?v=13");
 }
 html.app .edge {
   display: none;
@@ -180,9 +180,9 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   left: 0;
   right: 0;
   top: calc(593 * var(--u));
-  bottom: 0;
-  background: #10192d;
-  border-radius: calc(44 * var(--u)) calc(44 * var(--u)) 0 0;
+  height: calc(717 * var(--u));
+  background: #101929;
+  border-radius: calc(40 * var(--u)) calc(40 * var(--u)) 0 0;
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.3, 1);
 }
@@ -206,7 +206,7 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   right: 0;
   text-align: center;
   color: #fff;
-  font-size: calc(34 * var(--u));
+  font-size: calc(33 * var(--u));
   font-weight: 500;
   font-family: "Inter", sans-serif;
 }
@@ -225,10 +225,10 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   cursor: pointer;
 }
 .sheet-close__disc {
-  width: calc(92 * var(--u));
-  height: calc(92 * var(--u));
+  width: calc(90 * var(--u));
+  height: calc(90 * var(--u));
   border-radius: 50%;
-  background: #00061c;
+  background: #00051a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,13 +251,15 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 .field__input {
   width: 100%;
   height: 100%;
-  background: #00061c;
+  background: #00051a;
   border: calc(3 * var(--u)) solid #fff;
   border-radius: calc(28 * var(--u));
   color: #fff;
   font-family: "Inter", sans-serif;
   font-size: calc(32 * var(--u));
   letter-spacing: calc(2 * var(--u));
+  -webkit-text-security: disc;
+  text-security: disc;
   padding: 0 calc(90 * var(--u)) 0 calc(38 * var(--u));
   outline: none;
   -webkit-appearance: none;
@@ -265,6 +267,14 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 .field__input::placeholder {
   color: #9aa7bd;
   letter-spacing: 0;
+}
+.field__input:placeholder-shown {
+  -webkit-text-security: none;
+  text-security: none;
+}
+.field__input.reveal {
+  -webkit-text-security: none;
+  text-security: none;
 }
 .field__eye {
   position: absolute;
@@ -285,10 +295,10 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 
 .sheet-forgot {
   position: absolute;
-  top: calc(432 * var(--u));
+  top: calc(433 * var(--u));
   left: calc(38 * var(--u));
   color: #5aa0fa;
-  font-size: calc(30 * var(--u));
+  font-size: calc(33 * var(--u));
   font-weight: 600;
   text-decoration: none;
 }
@@ -301,8 +311,8 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   height: calc(127 * var(--u));
   border: none;
   border-radius: calc(28 * var(--u));
-  background: #2a3350;
-  color: #7f8aa0;
+  background: #222c41;
+  color: #8792a6;
   font-family: "Inter", sans-serif;
   font-size: calc(35 * var(--u));
   font-weight: 600;

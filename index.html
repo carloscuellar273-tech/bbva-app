@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=13" />
+  <link rel="manifest" href="manifest.json?v=14" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=13" />
+  <link rel="stylesheet" href="style.css?v=14" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -42,37 +42,28 @@
     </section>
   </div>
 
-  <!-- Panel "Iniciar sesión" (sube desde abajo) -->
+  <!-- Panel "Iniciar sesión" (sube desde abajo). Usa la foto real como plantilla. -->
   <div class="sheet-overlay" id="sheet" aria-hidden="true">
     <div class="sheet-dim" id="sheetDim"></div>
     <section class="sheet" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
-      <div class="sheet-handle"></div>
+      <img class="sheet-img" src="sheet-bg.jpg?v=14" alt="" draggable="false" />
 
-      <h2 class="sheet-title">Iniciar sesión</h2>
-      <button class="sheet-close" type="button" id="sheetClose" aria-label="Cerrar">
-        <span class="sheet-close__disc">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="sheet-close__label">Cerrar</span>
-      </button>
+      <!-- Tapa opaca que oculta el "Clave de acceso" al escribir -->
+      <div class="field-cover" id="fieldCover"></div>
+      <!-- Puntos (o clave visible) -->
+      <div class="dots" id="dots"></div>
+      <!-- Campo real: captura el teclado; el texto es invisible (nunca se ve la letra) -->
+      <input class="pwd-input" id="pwd" type="text" inputmode="text"
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             aria-label="Clave de acceso" />
 
-      <div class="field">
-        <input class="field__input" id="pwd" type="text" inputmode="text"
-               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-               placeholder="Clave de acceso" />
-        <button class="field__eye" type="button" id="eye" aria-label="Mostrar clave">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.7"/>
-            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
-          </svg>
-        </button>
-      </div>
+      <!-- Botón blanco que aparece encima del gris al escribir -->
+      <button class="btn-white" id="sheetLogin" type="button">Iniciar sesión</button>
 
-      <a href="#" class="sheet-forgot" id="forgot">¿Has olvidado tu clave de acceso?</a>
-
-      <button class="sheet-login" type="button" id="sheetLogin" disabled>Iniciar sesión</button>
+      <!-- Zonas táctiles sobre la plantilla -->
+      <button class="hit hit-close" id="sheetClose" type="button" aria-label="Cerrar"></button>
+      <button class="hit hit-eye" id="eye" type="button" aria-label="Mostrar clave"></button>
+      <a class="hit hit-forgot" id="forgot" href="#" aria-label="¿Has olvidado tu clave de acceso?"></a>
     </section>
   </div>
 
@@ -113,15 +104,43 @@
       // ---- Panel "Iniciar sesión" ----
       var sheet = document.getElementById('sheet');
       var pwd = document.getElementById('pwd');
+      var dots = document.getElementById('dots');
+      var cover = document.getElementById('fieldCover');
       var loginBtn = document.getElementById('sheetLogin');
       var openBtn = document.querySelector('.login-btn');
+      var revealed = false;
+
+      function render() {
+        var v = pwd.value;
+        if (v.length === 0) {
+          dots.style.display = 'none';
+          cover.style.display = 'none';     // se ve el "Clave de acceso" de la plantilla
+        } else {
+          cover.style.display = 'block';    // tapa el "Clave de acceso"
+          dots.style.display = 'flex';
+          if (revealed) {
+            dots.classList.add('as-text');
+            dots.textContent = v;
+          } else {
+            dots.classList.remove('as-text');
+            dots.textContent = '';
+            for (var i = 0; i < v.length; i++) {
+              dots.appendChild(document.createElement('i'));
+            }
+          }
+        }
+        loginBtn.classList.toggle('on', v.length > 4);  // blanco con más de 4
+      }
 
       function openSheet() {
         sheet.classList.add('open');
         sheet.setAttribute('aria-hidden', 'false');
         document.body.classList.add('sheet-open');
-        // abrir el teclado (debe hacerse dentro del gesto del usuario)
-        setTimeout(function () { pwd.focus(); }, 120);
+        // abrir SOLO el teclado, sin que la pantalla suba
+        setTimeout(function () {
+          try { pwd.focus({ preventScroll: true }); } catch (e) { pwd.focus(); }
+          window.scrollTo(0, 0);
+        }, 120);
       }
       function closeSheet() {
         pwd.blur();
@@ -134,15 +153,15 @@
       document.getElementById('sheetClose').addEventListener('click', closeSheet);
       document.getElementById('sheetDim').addEventListener('click', closeSheet);
 
-      // El botón se pone blanco (activo) con más de 4 caracteres
-      pwd.addEventListener('input', function () {
-        loginBtn.disabled = pwd.value.length <= 4;
-      });
+      pwd.addEventListener('input', render);
+      // Evitar que iOS desplace la página al enfocar
+      pwd.addEventListener('focus', function () { setTimeout(function () { window.scrollTo(0, 0); }, 50); });
 
-      // Ojo: mostrar/ocultar la clave (siempre puntos salvo que se pulse el ojo)
+      // Ojo: mostrar/ocultar la clave (por defecto siempre puntos)
       document.getElementById('eye').addEventListener('click', function () {
-        pwd.classList.toggle('reveal');
-        pwd.focus();
+        revealed = !revealed;
+        render();
+        pwd.focus({ preventScroll: true });
       });
 
       // Enlaces sin acción por ahora

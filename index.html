@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=28" />
+  <link rel="manifest" href="manifest.json?v=29" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Libre+Franklin:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=28" />
+  <link rel="stylesheet" href="style.css?v=29" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -46,7 +46,7 @@
   <div class="sheet-overlay" id="sheet" aria-hidden="true">
     <div class="sheet-dim" id="sheetDim"></div>
     <section class="sheet" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
-      <img class="sheet-img" src="sheet-bg.jpg?v=28" alt="" draggable="false" />
+      <img class="sheet-img" src="sheet-bg.jpg?v=29" alt="" draggable="false" />
 
       <!-- Campo vivo (encima del de la foto): etiqueta flotante + puntos -->
       <div class="field2" id="field2">
@@ -77,13 +77,24 @@
     <button class="home-vertodo" id="homeVerTodo" type="button" aria-label="Ver todo"></button>
   </div>
 
-  <!-- Pantalla "Principales productos": tarjetas de cuenta deslizables -->
+  <!-- Pantalla "Inicio" (scrollable): cabecera y barra fijas, resto se desliza -->
   <div class="ver" id="ver" aria-hidden="true">
-    <div class="ver-track" id="verTrack">
-      <section class="ver-card" style="background-image:url('card1.jpg?v=28')"></section>
-      <section class="ver-card" style="background-image:url('card2.jpg?v=28')"></section>
+    <div class="ver-head"></div>
+    <div class="ver-scroll" id="verScroll">
+      <div class="ver-content">
+        <!-- carrusel de cuentas -->
+        <div class="ver-track" id="verTrack">
+          <section class="ver-card" style="background-image:url('card1.jpg?v=29')"></section>
+          <section class="ver-card" style="background-image:url('card2.jpg?v=29')"></section>
+        </div>
+        <div class="ver-pager" id="verPager">1 de 5</div>
+        <!-- Ingresos y gastos: valores editados -->
+        <div class="ig-period">Del 1 octubre al 5 octubre</div>
+        <div class="ig-gastos">-112,78 €</div>
+        <div class="ig-balance">936,13 €</div>
+      </div>
     </div>
-    <div class="ver-pager" id="verPager">1 de 5</div>
+    <div class="ver-nav"></div>
   </div>
 
   <script>
@@ -123,7 +134,7 @@
       }
       // Que no se mueva la pantalla al arrastrar (pero sí en campos de texto y en el carrusel de cuentas)
       document.addEventListener('touchmove', function (e) {
-        if (!e.target.closest('input, textarea, .ver-track')) e.preventDefault();
+        if (!e.target.closest('input, textarea, .ver-track, .ver-scroll')) e.preventDefault();
       }, { passive: false });
 
       // ---- Panel "Iniciar sesión" ----
@@ -211,10 +222,12 @@
       }
       verTrack.addEventListener('scroll', updatePager, { passive: true });
 
+      var verScroll = document.getElementById('verScroll');
       document.getElementById('homeVerTodo').addEventListener('click', function () {
         ver.classList.add('open');
         ver.setAttribute('aria-hidden', 'false');
         verTrack.scrollLeft = 0;
+        if (verScroll) verScroll.scrollTop = 0;
         updatePager();
       });
 

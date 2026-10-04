@@ -16,14 +16,14 @@ html, body {
 /* La foto original va en el fondo raíz. El tamaño y el desplazamiento exactos
    en píxeles los pone el script según la pantalla. */
 html {
-  background: #144866 url("bg.jpg?v=29") 0 0 / 100vw 100vh no-repeat;
+  background: #144866 url("bg.jpg?v=30") 0 0 / 100vw 100vh no-repeat;
 }
 
 /* Modo app nativa (?app=1): foto limpia a pantalla completa y nítida
    (dentro de la app de iOS no hay desenfoque, así que no hacen falta parches) */
 html.app {
   background-color: #022d5a;
-  background-image: url("bg-app.jpg?v=29");
+  background-image: url("bg-app.jpg?v=30");
 }
 html.app .edge {
   display: none;
@@ -337,7 +337,7 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
   position: fixed;
   inset: 0;
   z-index: 20;
-  background: #0a1a2f url("bg-home.jpg?v=29") center top / 100% 100% no-repeat;
+  background: #0a1a2f url("bg-home.jpg?v=30") center top / 100% 100% no-repeat;
   transform: translateX(100%);
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.3, 1);
   visibility: hidden;
@@ -375,13 +375,13 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 .ver-head {
   position: absolute; top: 0; left: 0; width: 100%;
   height: calc(485 * var(--p));
-  background: #00051a url("ver-head.jpg?v=29") 0 0 / 100% 100% no-repeat;
+  background: #00051a url("ver-head.jpg?v=30") 0 0 / 100% 100% no-repeat;
   z-index: 4;
 }
 .ver-nav {
   position: absolute; bottom: 0; left: 0; width: 100%;
   height: calc(284 * var(--p));
-  background: #00051a url("ver-nav.jpg?v=29") 0 0 / 100% 100% no-repeat;
+  background: #00051a url("ver-nav.jpg?v=30") 0 0 / 100% 100% no-repeat;
   z-index: 4;
 }
 .ver-scroll {
@@ -393,8 +393,8 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 }
 .ver-content {
   position: relative; width: 100%;
-  height: calc(2696 * var(--p));
-  background: #00051a url("ver-content.jpg?v=29") 0 0 / 100% 100% no-repeat;
+  height: calc(2416 * var(--p));
+  background: #00051a url("ver-content.jpg?v=30") 0 0 / 100% 100% no-repeat;
 }
 
 .ver-track {
@@ -426,15 +426,5 @@ body.sheet-open .stage { filter: blur(9px) brightness(0.45); }
 .ig-period {
   position: absolute; top: calc(1864 * var(--p)); left: calc(96 * var(--p));
   color: #e7edf6; font-family: "Lora", Georgia, serif; font-style: italic;
-  font-size: calc(40 * var(--p)); white-space: nowrap;
-}
-.ig-gastos {
-  position: absolute; top: calc(2176 * var(--p)); right: calc(72 * var(--p));
-  color: #fff; font-family: "Libre Franklin", sans-serif; font-weight: 300;
-  font-size: calc(46 * var(--p)); white-space: nowrap;
-}
-.ig-balance {
-  position: absolute; top: calc(2288 * var(--p)); right: calc(74 * var(--p));
-  color: #fff; font-family: "Libre Franklin", sans-serif; font-weight: 300;
-  font-size: calc(58 * var(--p)); white-space: nowrap;
+  font-size: calc(37 * var(--p)); white-space: nowrap;
 }

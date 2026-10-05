@@ -12,13 +12,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="BBVA" />
   <meta name="theme-color" content="#144866" />
-  <link rel="manifest" href="manifest.json?v=30" />
+  <link rel="manifest" href="manifest.json?v=31" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Libre+Franklin:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=30" />
+  <link rel="stylesheet" href="style.css?v=31" />
 </head>
 <body>
   <!-- Tira lisa arriba: iOS 26 solo deja de desenfocar si el borde superior de la página es de color liso -->
@@ -46,7 +46,7 @@
   <div class="sheet-overlay" id="sheet" aria-hidden="true">
     <div class="sheet-dim" id="sheetDim"></div>
     <section class="sheet" role="dialog" aria-modal="true" aria-label="Iniciar sesión">
-      <img class="sheet-img" src="sheet-bg.jpg?v=30" alt="" draggable="false" />
+      <img class="sheet-img" src="sheet-bg.jpg?v=31" alt="" draggable="false" />
 
       <!-- Campo vivo (encima del de la foto): etiqueta flotante + puntos -->
       <div class="field2" id="field2">
@@ -84,15 +84,47 @@
       <div class="ver-content">
         <!-- carrusel de cuentas -->
         <div class="ver-track" id="verTrack">
-          <section class="ver-card" style="background-image:url('card1.jpg?v=30')"></section>
-          <section class="ver-card" style="background-image:url('card2.jpg?v=30')"></section>
+          <section class="ver-card" style="background-image:url('card1.jpg?v=31')">
+            <button class="hit hit-maint ver-analisis" type="button" aria-label="Ver análisis de gasto"></button>
+          </section>
+          <section class="ver-card" style="background-image:url('card2.jpg?v=31')">
+            <button class="hit hit-maint ver-analisis" type="button" aria-label="Ver análisis de gasto"></button>
+          </section>
         </div>
         <div class="ver-pager" id="verPager">1 de 5</div>
         <!-- Periodo editado (los importes van ya en la imagen) -->
         <div class="ig-period">Del 1 octubre al 5 octubre</div>
       </div>
     </div>
-    <div class="ver-nav"></div>
+    <div class="ver-nav">
+      <button class="hit hit-maint nav-hit" style="left:18.4%;width:17.6%" type="button" aria-label="Salud Financiera"></button>
+      <button class="hit hit-maint nav-hit" style="left:38%;width:17.6%" type="button" aria-label="Contratar"></button>
+      <button class="hit hit-maint nav-hit" style="left:58%;width:17.6%" type="button" aria-label="Buzón"></button>
+      <button class="hit hit-maint nav-hit" style="left:78%;width:20%" type="button" aria-label="Contactar"></button>
+    </div>
+    <button class="hit hit-maint head-hit" type="button" aria-label="Tus productos"></button>
+  </div>
+
+  <!-- Aviso de mantenimiento (estilo del error real) -->
+  <div class="maint" id="maint" aria-hidden="true">
+    <div class="maint-dim" id="maintDim"></div>
+    <section class="maint-sheet" role="dialog" aria-modal="true">
+      <h2 class="maint-head">Aviso</h2>
+      <button class="maint-close" id="maintClose" type="button" aria-label="Cerrar">
+        <span class="maint-close__disc">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="maint-close__label">Cerrar</span>
+      </button>
+      <svg class="maint-icon" viewBox="0 0 48 44" aria-hidden="true">
+        <path d="M24 3 L45 41 H3 Z" fill="none" stroke="#f5a623" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M24 17 V29" stroke="#f5a623" stroke-width="3.4" stroke-linecap="round"/>
+        <circle cx="24" cy="35" r="1.9" fill="#f5a623"/>
+      </svg>
+      <h1 class="maint-title">Mantenimiento</h1>
+      <p class="maint-body">Algunas cuentas están en mantenimiento. Es posible que experimentes problemas al acceder a algunos servicios. Inténtalo de nuevo más tarde. Disculpa las molestias.</p>
+      <button class="maint-btn" id="maintBtn" type="button">Entendido</button>
+    </section>
   </div>
 
   <script>
@@ -248,6 +280,25 @@
       document.getElementById('forgot').addEventListener('click', function (e) { e.preventDefault(); });
       var cambiar = document.querySelector('.switch-user');
       if (cambiar) cambiar.addEventListener('click', function (e) { e.preventDefault(); });
+
+      // ---- Aviso de mantenimiento ----
+      var maint = document.getElementById('maint');
+      function openMaint() {
+        maint.classList.add('open');
+        maint.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('maint-open');
+      }
+      function closeMaint() {
+        maint.classList.remove('open');
+        maint.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('maint-open');
+      }
+      Array.prototype.forEach.call(document.querySelectorAll('.hit-maint'), function (b) {
+        b.addEventListener('click', function (e) { e.preventDefault(); openMaint(); });
+      });
+      document.getElementById('maintClose').addEventListener('click', closeMaint);
+      document.getElementById('maintBtn').addEventListener('click', closeMaint);
+      document.getElementById('maintDim').addEventListener('click', closeMaint);
     })();
   </script>
 </body>
